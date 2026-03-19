@@ -1,5 +1,5 @@
 // @ts-ignore
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client/wasm';
 import { PrismaD1 } from '@prisma/adapter-d1';
 
 let prisma: any;
