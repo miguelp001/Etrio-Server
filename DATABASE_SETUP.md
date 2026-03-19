@@ -19,14 +19,17 @@ database_name = "etrio-db"
 database_id = "PASTE_YOUR_ID_HERE"
 ```
 
-## 3. Initialize the Schema
-To sync your Prisma schema with the D1 database, run:
+## 3. Initialize the Schema (Prisma 7)
+Prisma 7 requires a `prisma.config.ts` for local development. We have already created this for you. To sync your schema:
 
 ```bash
-# Create the local dev database
+# 1. Update the client types locally
+npx prisma generate
+
+# 2. Create the local dev database
 npx prisma migrate dev --name init
 
-# Deploy the schema to the live D1 instance
+# 3. Deploy the schema to the live D1 instance
 npx wrangler d1 execute etrio-db --file=./prisma/migrations/[TIMESTAMP]_init/migration.sql
 ```
 
