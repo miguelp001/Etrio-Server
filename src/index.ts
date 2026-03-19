@@ -6,12 +6,17 @@ import {
   UserService
 } from './services';
 
+import { cors } from 'hono/cors';
+
 type Bindings = {
   DB: D1Database;
   JWT_SECRET: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+// Enable CORS for all origins
+app.use('*', cors());
 
 app.get('/health', (c) => {
   return c.json({ status: 'OK', message: 'Legacy of Etrio Server is running on Cloudflare D1' });
