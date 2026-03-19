@@ -1,9 +1,7 @@
 name = "etrio-server"
 compatibility_date = "2024-04-03"
 main = "src/index.ts"
-
-[build]
-external = ["@prisma/client", ".prisma/client"]
+compatibility_flags = ["nodejs_compat"]
 
 [vars]
 # DATABASE_URL = "postgres://..."
