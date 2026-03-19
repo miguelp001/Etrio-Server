@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String      @id @default(uuid())
+  email     String      @unique
+  username  String      @unique
+  password  String
+  gold      Int         @default(100)
+  guildId   String?
+  guild     Guild?      @relation(fields: [guildId], references: [id])
+  characters Character[]
+  items      Item[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+
+
+model Character {
+  id              String       @id @default(uuid())
+  userId          String?
+  user            User?        @relation(fields: [userId], references: [id])
+  name            String
+  class           String
+  subclass        String @default("NONE")
+  level           Int          @default(1)
+  experience      BigInt       @default(0)
+  
+  // Stats
+  baseAtk         Int          @default(10)
+  baseDef         Int          @default(10)
+  baseSpd         Int          @default(10)
+  baseHp          Int          @default(100)
+  baseMp          Int          @default(50)
+  
+  // Heir mechanics
+  heirMultiplier  Float        @default(1.0)
+  generation      Int          @default(1)
+  
+  // State
+  isHero          Boolean      @default(false) // If true, it's the player character
+  isNPC           Boolean      @default(false)
+  
+  lastUpdate      DateTime     @default(now()) // For offline progression calculation
+  
+  // Equipment
+  inventory       Item[]       @relation("Owner")
+  equipped        Item[]       @relation("EquippedTo")
+  
+  partyId         String?
+  party           Party?       @relation(fields: [partyId], references: [id])
+}
+
+model Party {
+  id         String      @id @default(uuid())
+  members    Character[]
+  lastFloor   Int         @default(1)
+}
+
+model Affinity {
+  id            String    @id @default(uuid())
+  charAId       String
+  charBId       String
+  score         Int       @default(0)
+  
+  @@unique([charAId, charBId])
+}
+
+model Item {
+  id              String    @id @default(uuid())
+  ownerId         String?
+  owner           User?     @relation(fields: [ownerId], references: [id])
+  
+  charId          String?
+  character       Character? @relation("Owner", fields: [charId], references: [id])
+  
+  equippedToId    String?
+  equippedTo      Character? @relation("EquippedTo", fields: [equippedToId], references: [id])
+
+  name            String
+  prefix          String?
+  suffix          String?
+  baseType        String    // e.g., "Sword", "Staff"
+  
+  rarity          String    @default("COMMON") // COMMON, RARE, EPIC, LEGENDARY, CORRUPTED
+  isCorrupted     Boolean   @default(false)
+  isStabilized    Boolean   @default(false)
+  
+  // Stats added by item
+  atkBonus        Int       @default(0)
+  defBonus        Int       @default(0)
+  hpBonus         Int       @default(0)
+  mpBonus         Int       @default(0)
+  
+  durability      Int       @default(100)
+  maxDurability   Int       @default(100)
+}
+
+model Guild {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  level       Int      @default(1)
+  vaultGold   Int      @default(0)
+  members     User[]
+  buildings   String?    // e.g., { "Library": 1, "Armory": 2 }
+  gateFloor   Int      @default(100)
+  raidState   String   @default("IDLE") // IDLE, ACTIVE
+}
