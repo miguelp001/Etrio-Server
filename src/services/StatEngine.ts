@@ -16,7 +16,7 @@ export class StatEngine {
       [ClassType.THIEF]:   { atk: 2.8, def: 1.2, spd: 3.0, hp: 10.0, mp: 3.0 },
     };
 
-    const rates = growth[classType];
+    const rates = growth[classType as ClassType];
 
     const stats: CalculatedStats = {
       atk: Math.floor((character.baseAtk + (rates.atk * (level - 1))) * heirMultiplier),
