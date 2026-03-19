@@ -1,5 +1,5 @@
 import { getPrisma } from '../db';
-import { ClassType } from '@prisma/client';
+import { ClassType } from '../types/game';
 import { CharacterService } from './CharacterService';
 
 export class TavernService {

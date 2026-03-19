@@ -1,19 +1,11 @@
-import { Character, ClassType } from '@prisma/client';
-
-export interface CalculatedStats {
-  atk: number;
-  def: number;
-  spd: number;
-  hp: number;
-  mp: number;
-}
+import { ClassType, CalculatedStats } from '../types/game';
 
 export class StatEngine {
   /**
    * Calculates the current stats of a character based on level, class, and heir multipliers.
    * Equipment bonuses are added separately in the combat/simulation layers.
    */
-  static calculateBaseStats(character: Character): CalculatedStats {
+  static calculateBaseStats(character: any): CalculatedStats {
     const { level, class: classType, heirMultiplier } = character;
     
     // Growth rates per level (arbitrary balanced values)
@@ -51,7 +43,7 @@ export class StatEngine {
   /**
    * Checks if a character has enough XP to level up.
    */
-  static checkLevelUp(character: Character): { leveled: boolean; newLevel: number } {
+  static checkLevelUp(character: any): { leveled: boolean; newLevel: number } {
     let currentLevel = character.level;
     const currentXp = BigInt(character.experience);
     

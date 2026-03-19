@@ -1,5 +1,5 @@
 import { getPrisma } from '../db';
-import { Character, ClassType } from '@prisma/client';
+import { ClassType } from '../types/game';
 import { StatEngine } from './StatEngine';
 
 export class CharacterService {
@@ -32,7 +32,7 @@ export class CharacterService {
     const newXp = BigInt(char.experience) + xpGain;
     
     // Check for level up
-    const { leveled, newLevel } = StatEngine.checkLevelUp({ ...char, experience: newXp } as Character);
+    const { leveled, newLevel } = StatEngine.checkLevelUp({ ...char, experience: newXp });
     
     return this.prisma.character.update({
       where: { id },
@@ -47,6 +47,6 @@ export class CharacterService {
     const char = await this.prisma.character.findUnique({ where: { id } });
     if (!char) throw new Error('Character not found');
 
-    return StatEngine.calculateBaseStats(char as Character);
+    return StatEngine.calculateBaseStats(char);
   }
 }
