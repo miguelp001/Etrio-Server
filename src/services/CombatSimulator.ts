@@ -1,5 +1,6 @@
-import { Character } from '@prisma/client';
-import { StatEngine, CalculatedStats } from './StatEngine';
+// import { Character } from '@prisma/client';
+import { StatEngine } from './StatEngine';
+import { CalculatedStats } from '../types/game';
 
 export interface CombatEntity {
   id: string;
@@ -19,8 +20,8 @@ export class CombatSimulator {
   /**
    * Resolves a turn-based battle between a party and a group of enemies.
    */
-  static resolveBattle(partyMembers: Character[], enemies: CombatEntity[]): BattleResult {
-    const party: CombatEntity[] = partyMembers.map(m => ({
+  static resolveBattle(partyMembers: any[], enemies: CombatEntity[]): BattleResult {
+    const party: CombatEntity[] = partyMembers.map((m: any) => ({
       id: m.id,
       name: m.name,
       stats: StatEngine.calculateBaseStats(m),
@@ -72,7 +73,7 @@ export class CombatSimulator {
    * Calculates the statistical win-rate and resource usage for offline progression.
    * This is the "single-tick" efficient math required by the GDD.
    */
-  static calculateEfficiency(party: Character[], floorLevel: number): { winRate: number; avgTimePerKill: number } {
+  static calculateEfficiency(party: any[], floorLevel: number): { winRate: number; avgTimePerKill: number } {
     // Basic placeholder for statistical model
     // In a real implementation, we'd compare Party Total DPS vs Enemy HP/DEF
     return { winRate: 0.95, avgTimePerKill: 60 }; // 95% win rate, 60 seconds per kill

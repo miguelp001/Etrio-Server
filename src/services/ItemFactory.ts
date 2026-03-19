@@ -45,8 +45,8 @@ export class ItemFactory {
 
     const atkBonus = Math.floor((base.atk * prefix.atkMod * floorScale + (suffix.atkAdd || 0)) * corruptionMultiplier);
     const defBonus = Math.floor((base.def * prefix.defMod * floorScale + (suffix.defAdd || 0)) * corruptionMultiplier);
-    const hpBonus = Math.floor((suffix.hpAdd || 0) * floorScale * corruptionMultiplier);
-    const mpBonus = Math.floor((suffix.mpAdd || 0) * floorScale * corruptionMultiplier);
+    const hpBonus = Math.floor(((suffix as any).hpAdd || 0) * floorScale * corruptionMultiplier);
+    const mpBonus = Math.floor(((suffix as any).mpAdd || 0) * floorScale * corruptionMultiplier);
 
     const itemName = `${prefix.name} ${base.name} ${suffix.name}${isCorrupted ? ' (Corrupted)' : ''}`;
 

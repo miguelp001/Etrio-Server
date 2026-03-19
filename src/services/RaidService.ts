@@ -30,8 +30,8 @@ export class RaidService {
     if (!guild) throw new Error('Guild not found');
 
     // Statistical mass combat: Total Guild Power vs Gate Floor Difficulty
-    const totalPower = guild.members.reduce((sum, member) => {
-      return sum + member.characters.reduce((charSum, char) => charSum + char.level, 0);
+    const totalPower = guild.members.reduce((sum: number, member: any) => {
+      return sum + member.characters.reduce((charSum: number, char: any) => charSum + char.level, 0);
     }, 0);
 
     const difficulty = guild.gateFloor * 10;
