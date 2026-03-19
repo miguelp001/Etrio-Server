@@ -6,7 +6,7 @@ main = "src/index.ts"
 # DATABASE_URL = "postgres://..."
 # JWT_SECRET = "..."
 
-# [hyperdrive]
-# [[hyperdrive]]
-# binding = "HYPERDRIVE"
-# id = "..."
+[[d1_databases]]
+binding = "DB" # The binding name used in your code
+database_name = "etrio-db"
+database_id = "276990f4-c91c-41cb-b7c8-56c16b1456ab"

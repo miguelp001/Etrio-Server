@@ -1,11 +1,7 @@
 import { getPrisma } from '../db';
 
 export class HospitalService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   /**
    * Applies a 24-hour "Injured" debuff to all characters in a guild.

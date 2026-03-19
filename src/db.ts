@@ -1,14 +1,12 @@
 import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-import pg from 'pg';
+import { PrismaD1 } from '@prisma/adapter-d1';
 
 let prisma: PrismaClient;
 
-export function getPrisma(databaseUrl: string) {
+export function getPrisma(d1Database: D1Database) {
   if (prisma) return prisma;
 
-  const pool = new pg.Pool({ connectionString: databaseUrl });
-  const adapter = new PrismaPg(pool);
+  const adapter = new PrismaD1(d1Database);
   prisma = new PrismaClient({ adapter });
   
   return prisma;

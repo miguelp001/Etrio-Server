@@ -2,11 +2,7 @@ import { getPrisma } from '../db';
 import { CombatSimulator } from './CombatSimulator';
 
 export class RaidService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   /**
    * Enlists a party for the upcoming guild raid.

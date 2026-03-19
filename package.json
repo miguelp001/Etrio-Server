@@ -15,6 +15,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/adapter-d1": "^7.5.0",
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
     "cors": "^2.8.6",
@@ -23,6 +24,7 @@
     "pg": "^8.20.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260317.1",
     "@types/cors": "^2.8.19",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.18.0",

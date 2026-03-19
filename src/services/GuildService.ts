@@ -1,11 +1,7 @@
 import { getPrisma } from '../db';
 
 export class GuildService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   async createGuild(name: string, ownerId: string) {
     return this.prisma.guild.create({

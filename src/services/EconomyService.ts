@@ -1,11 +1,7 @@
 import { getPrisma } from '../db';
 
 export class EconomyService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   /**
    * Processes the auto-sell logic for a set of items based on a rarity threshold.

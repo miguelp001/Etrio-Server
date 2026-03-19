@@ -6,16 +6,14 @@ import { CharacterService } from './CharacterService';
 import { InventoryService } from './InventoryService';
 
 export class OfflineSimulationEngine {
-  private prisma;
   private lootEngine: LootEngine;
   private charService: CharacterService;
   private invService: InventoryService;
 
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-    this.lootEngine = new LootEngine(databaseUrl);
-    this.charService = new CharacterService(databaseUrl);
-    this.invService = new InventoryService(databaseUrl);
+  constructor(private prisma: any) {
+    this.lootEngine = new LootEngine(prisma);
+    this.charService = new CharacterService(prisma);
+    this.invService = new InventoryService(prisma);
   }
 
   /**

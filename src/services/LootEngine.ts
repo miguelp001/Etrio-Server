@@ -8,8 +8,8 @@ export interface LootResult {
 export class LootEngine {
   private itemFactory: ItemFactory;
 
-  constructor(databaseUrl: string) {
-    this.itemFactory = new ItemFactory(databaseUrl);
+  constructor(private prisma: any) {
+    this.itemFactory = new ItemFactory(prisma);
   }
 
   /**

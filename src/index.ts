@@ -1,25 +1,23 @@
 import { Hono } from 'hono';
-import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-import pg from 'pg';
+import { getPrisma } from './db';
 
-const app = new Hono();
-
-// For Cloudflare Workers, we typically pass the context (Env)
-// We'll define a type for our Env
 type Bindings = {
-  DATABASE_URL: string;
+  DB: D1Database;
   JWT_SECRET: string;
 };
 
+const app = new Hono<{ Bindings: Bindings }>();
+
 // Simple Health Check
 app.get('/health', (c) => {
-  return c.json({ status: 'OK', message: 'Legacy of Etrio Server is running on the Edge' });
+  return c.json({ status: 'OK', message: 'Legacy of Etrio Server is running on Cloudflare D1' });
 });
 
-// Root route
-app.get('/', (c) => {
-  return c.text('Welcome to the Legacy of Etrio Backend (Cloudflare Edition)');
+// Example route using D1
+app.get('/players', async (c) => {
+  const prisma = getPrisma(c.env.DB);
+  const players = await prisma.user.findMany();
+  return c.json(players);
 });
 
 // Error handling

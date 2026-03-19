@@ -8,11 +8,7 @@ export interface ItemStats {
 }
 
 export class ItemFactory {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   // Configuration for procedural generation
   private static bases = [

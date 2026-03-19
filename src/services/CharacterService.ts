@@ -3,11 +3,7 @@ import { Character, ClassType } from '@prisma/client';
 import { StatEngine } from './StatEngine';
 
 export class CharacterService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   async createCharacter(userId: string, name: string, classType: ClassType, isHero: boolean = false) {
     return this.prisma.character.create({

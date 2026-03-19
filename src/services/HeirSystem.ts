@@ -2,12 +2,10 @@ import { getPrisma } from '../db';
 import { CharacterService } from './CharacterService';
 
 export class HeirSystem {
-  private prisma;
   private charService: CharacterService;
 
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-    this.charService = new CharacterService(databaseUrl);
+  constructor(private prisma: any) {
+    this.charService = new CharacterService(prisma);
   }
 
   /**

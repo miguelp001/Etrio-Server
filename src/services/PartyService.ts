@@ -1,11 +1,7 @@
 import { getPrisma } from '../db';
 
 export class PartyService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   async createParty(characterIds: string[]) {
     return this.prisma.party.create({

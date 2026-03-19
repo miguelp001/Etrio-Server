@@ -1,11 +1,7 @@
 import { getPrisma } from '../db';
 
 export class InventoryService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   async equipItem(characterId: string, itemId: string) {
     // Un-equip current item in the same slot if needed (simplifying for now)

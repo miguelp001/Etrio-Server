@@ -1,11 +1,7 @@
 import { getPrisma } from '../db';
 
 export class UserService {
-  private prisma;
-
-  constructor(databaseUrl: string) {
-    this.prisma = getPrisma(databaseUrl);
-  }
+  constructor(private prisma: any) {}
 
   async createUser(username: string, email: string) {
     return this.prisma.user.create({
